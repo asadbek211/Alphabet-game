@@ -15,7 +15,6 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.bizmiz.alphabetgame.MainActivity
 import com.bizmiz.alphabetgame.R
 import com.bizmiz.alphabetgame.databinding.FragmentMainBinding
 import com.bizmiz.alphabetgame.util.buttonSound
@@ -33,6 +32,7 @@ class MainFragment : Fragment() {
     private lateinit var soundBtn: MediaPlayer
     private lateinit var trainSound: MediaPlayer
     private lateinit var fonMusic: MediaPlayer
+    private var check = true
     private lateinit var prefs: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +80,7 @@ class MainFragment : Fragment() {
                     editor.putInt("position", fonMusic.currentPosition)
                     editor.apply()
                 }
-                fonMusic.stop()
+                check = false
                 val navController: NavController =
                     Navigation.findNavController(requireActivity(), R.id.mainContainer)
                 navController.navigate(R.id.main_to_category)
@@ -100,15 +100,19 @@ class MainFragment : Fragment() {
                 fonMusic.pause()
                 fonMusic.seekTo(0)
                 setPrefs(false)
+                check = true
             } else {
                 binging.btnSound.setImageResource(R.drawable.music_sound)
                 fonMusic.start()
                 setPrefs(true)
+                check = false
             }
         }
         if (getPrefs()) {
+            check = true
             binging.btnSound.setImageResource(R.drawable.music_sound)
         } else {
+            check = false
             binging.btnSound.setImageResource(R.drawable.music_mute)
         }
         playAnim?.setAnimationListener(object : Animation.AnimationListener {
@@ -127,9 +131,11 @@ class MainFragment : Fragment() {
             }
 
         })
-        fonMusic.isLooping = false
+
         fonMusic.setOnCompletionListener {
+            if (check) {
                 fonMusic.start()
+            }
         }
         return binging.root
 
@@ -187,7 +193,9 @@ class MainFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        fonMusic.pause()
+        if (getPrefs()) {
+            fonMusic.pause()
+        }
     }
 
     override fun onResume() {
@@ -200,9 +208,9 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         prefs.edit().remove("position").apply()
-        fonMusic.stop()
     }
-    fun setPrefs(isPlay: Boolean) {
+
+    private fun setPrefs(isPlay: Boolean) {
         prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE)
         prefs.edit().putBoolean("isPlay", isPlay).apply()
     }

@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.bizmiz.alphabetgame.MainActivity
 import com.bizmiz.alphabetgame.R
 import com.bizmiz.alphabetgame.databinding.FragmentCategoryBinding
 import com.bizmiz.alphabetgame.util.buttonSound
@@ -32,6 +31,7 @@ class CategoryFragment : Fragment(), View.OnClickListener {
     private lateinit var fonSound: MediaPlayer
     private lateinit var prefs: SharedPreferences
     private var position = 0
+    private var check = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +45,6 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         position = prefs.getInt("position", 0)
         fonSound = MediaPlayer.create(requireContext(), R.raw.music_fon)
         if (getPrefs()) {
-            Toast.makeText(requireActivity(), "if (getPrefs())", Toast.LENGTH_SHORT).show()
             fonSound.seekTo(position)
             fonSound.start()
         }
@@ -69,12 +68,12 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         binging.img4.setOnClickListener(this)
         binging.img5.setOnClickListener(this)
         trainLeft()
-       if (getPrefs()){
            fonSound.setOnCompletionListener {
-               Toast.makeText(requireActivity(), "OnCompletion", Toast.LENGTH_SHORT).show()
-               fonSound.start()
+               if (check){
+                   fonSound.start()
+               }
            }
-       }
+
         left.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
                 binging.btnExit.isEnabled = false
@@ -97,15 +96,19 @@ class CategoryFragment : Fragment(), View.OnClickListener {
                 fonSound.pause()
                 fonSound.seekTo(0)
                 setPrefs(false)
+                check = true
             } else {
                 binging.btnSound.setImageResource(R.drawable.music_sound_right)
                 fonSound.start()
                setPrefs(true)
+                check = false
             }
         }
         if (getPrefs()) {
+            check = true
             binging.btnSound.setImageResource(R.drawable.music_sound_right)
         } else {
+            check = false
             binging.btnSound.setImageResource(R.drawable.music_mute_right_)
         }
         return binging.root
@@ -122,11 +125,6 @@ class CategoryFragment : Fragment(), View.OnClickListener {
                     }
 
                     override fun onAnimationEnd(animation: Animation?) {
-                        if (getPrefs()){
-                            val editor = prefs.edit()
-                            editor.putInt("position", fonSound.currentPosition)
-                            editor.apply()
-                        }
                         destination(0)
                     }
 
@@ -167,7 +165,12 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         } else {
             navController.navigate(id)
         }
-        fonSound.stop()
+        if (getPrefs()){
+            val editor = prefs.edit()
+            editor.putInt("position", fonSound.currentPosition)
+            editor.apply()
+        }
+        check = false
     }
 
     private fun trainLeft() {
@@ -202,23 +205,18 @@ class CategoryFragment : Fragment(), View.OnClickListener {
 
     override fun onPause() {
         super.onPause()
-        fonSound.pause()
+        if (getPrefs()) {
+            fonSound.pause()
+        }
     }
 
     override fun onResume() {
         super.onResume()
         if (getPrefs()) {
-            Toast.makeText(requireActivity(), "onResume", Toast.LENGTH_SHORT).show()
             fonSound.start()
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        prefs.edit().remove("position").apply()
-        fonSound.stop()
-    }
-    fun setPrefs(isPlay: Boolean) {
+    private fun setPrefs(isPlay: Boolean) {
         prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE)
         prefs.edit().putBoolean("isPlay", isPlay).apply()
     }
