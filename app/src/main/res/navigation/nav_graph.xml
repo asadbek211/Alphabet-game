@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/splash">
+
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.bizmiz.alphabetgame.fragments.splash.SplashFragment"
+        android:label="splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/splash_to_main"
+            app:destination="@id/main"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/category"
+        android:name="com.bizmiz.alphabetgame.fragments.category.CategoryFragment"
+        android:label="category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/category_to_spelling"
+            app:destination="@id/spelling" />
+        <action
+            android:id="@+id/category_to_blankSpelling"
+            app:destination="@id/blankSpelling" />
+        <action
+            android:id="@+id/category_to_fillBlank"
+            app:destination="@id/fillBlank" />
+        <action
+            android:id="@+id/category_to_alphabetSound"
+            app:destination="@id/alphabetSound" />
+        <action
+            android:id="@+id/category_to_memoryMatch"
+            app:destination="@id/memoryMatch" />
+        <action
+            android:id="@+id/action_category_to_main"
+            app:destination="@id/main"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        android:id="@+id/main"
+        android:name="com.bizmiz.alphabetgame.fragments.main.MainFragment"
+        android:label="main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/main_to_category"
+            app:destination="@id/category" />
+    </fragment>
+    <fragment
+        android:id="@+id/spelling"
+        android:name="com.bizmiz.alphabetgame.fragments.spelling.SpellingFragment"
+        android:label="spelling"
+        tools:layout="@layout/fragment_spelling" />
+    <fragment
+        tools:layout="@layout/fragment_blank_spelling"
+        android:id="@+id/blankSpelling"
+        android:name="com.bizmiz.alphabetgame.fragments.blankSpelling.BlankSpellingFragment"
+        android:label="BlankSpelling" />
+    <fragment
+        tools:layout="@layout/fragment_fill_blank"
+        android:id="@+id/fillBlank"
+        android:name="com.bizmiz.alphabetgame.fragments.filIBlank.FillBlankFragment"
+        android:label="FillBlank" />
+    <fragment
+        tools:layout="@layout/fragment_alphabet_sound"
+        android:id="@+id/alphabetSound"
+        android:name="com.bizmiz.alphabetgame.fragments.alphabetSound.AlphabetSoundFragment"
+        android:label="AlphabetSound" />
+    <fragment
+        android:id="@+id/memoryMatch"
+        android:name="com.bizmiz.alphabetgame.fragments.memoryMatch.MemoryMatchFragment"
+        android:label="memory_match"
+        tools:layout="@layout/fragment_memory_match" />
+</navigation>
