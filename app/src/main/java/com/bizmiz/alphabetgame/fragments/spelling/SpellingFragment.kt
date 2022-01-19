@@ -71,7 +71,7 @@ class SpellingFragment : Fragment() {
             navController.popBackStack()
         }
         binding.imgSpelling.setOnClickListener {
-            if (!letterPlayer.isPlaying){
+            if (!letterPlayer.isPlaying) {
                 letterSound(letterId[randNum])
             }
         }
@@ -97,6 +97,20 @@ class SpellingFragment : Fragment() {
                 startY1 = inputCh1.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh2)) {
+                            binding.inputCh2.isEnabled = true
+                            if (startX2 != 0f && startY2 != 0f) {
+                                binding.inputCh2.x = startX2
+                                binding.inputCh2.y = startY2
+                            }
+                        }
+                        if (!checkImg(binding.inputCh3)) {
+                            binding.inputCh3.isEnabled = true
+                            if (startX3 != 0f && startY3 != 0f) {
+                                binding.inputCh3.x = startX3
+                                binding.inputCh3.y = startY3
+                            }
+                        }
                         when (inputCh1.text) {
                             ch1.text -> {
                                 inputChecked(inputCh1, ch1, startX1, startY1)
@@ -115,6 +129,8 @@ class SpellingFragment : Fragment() {
                         dY1 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh2.isEnabled = false
+                        binding.inputCh3.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX1)
                             .y(event.rawY + dY1)
@@ -143,6 +159,22 @@ class SpellingFragment : Fragment() {
                 startY2 = inputCh2.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh1)) {
+                            binding.inputCh1.isEnabled = true
+                            if (startX1 != 0f && startY1 != 0f) {
+                                binding.inputCh1.x = startX1
+                                binding.inputCh1.y = startY1
+                            }
+
+                        }
+                        if (!checkImg(binding.inputCh3)) {
+                            binding.inputCh3.isEnabled = true
+                            if (startX3 != 0f && startY3 != 0f) {
+                                binding.inputCh3.x = startX3
+                                binding.inputCh3.y = startY3
+                            }
+
+                        }
                         when (inputCh2.text) {
                             ch1.text -> {
                                 inputChecked(inputCh2, ch1, startX2, startY2)
@@ -161,6 +193,8 @@ class SpellingFragment : Fragment() {
                         dY2 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh1.isEnabled = false
+                        binding.inputCh3.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX2)
                             .y(event.rawY + dY2)
@@ -189,6 +223,20 @@ class SpellingFragment : Fragment() {
                 startY3 = inputCh3.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh1)) {
+                            binding.inputCh1.isEnabled = true
+                            if (startX1 != 0f && startY1 != 0f) {
+                                binding.inputCh1.x = startX1
+                                binding.inputCh1.y = startY1
+                            }
+                        }
+                        if (!checkImg(binding.inputCh2)) {
+                            binding.inputCh2.isEnabled = true
+                            if (startX2 != 0f && startY2 != 0f) {
+                                binding.inputCh2.x = startX2
+                                binding.inputCh2.y = startY2
+                            }
+                        }
                         when (inputCh3.text) {
                             ch1.text -> {
                                 inputChecked(inputCh3, ch1, startX3, startY3)
@@ -208,6 +256,8 @@ class SpellingFragment : Fragment() {
                         dY3 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh1.isEnabled = false
+                        binding.inputCh2.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX3)
                             .y(event.rawY + dY3)
@@ -231,9 +281,9 @@ class SpellingFragment : Fragment() {
 
     private fun randomLetters(ch1: TextView, ch2: TextView, ch3: TextView) {
         val letterList: ArrayList<Char> = arrayListOf()
-            randNum = (0..64).random()
-            val letterSound = letterId[randNum]
-            letterSound(letterSound)
+        randNum = (0..64).random()
+        val letterSound = letterId[randNum]
+        letterSound(letterSound)
         val letter = lettersList[randNum]
         binding.imgSpelling.setImageResource(letterImages[randNum])
         letterList.add(letter[0])
@@ -242,11 +292,11 @@ class SpellingFragment : Fragment() {
         ch1.text = letterList[0].toString()
         ch2.text = letterList[1].toString()
         ch3.text = letterList[2].toString()
-            randNum1 = (0..2).random()
+        randNum1 = (0..2).random()
         val character1 = letterList[randNum1]
         binding.inputCh1.text = character1.toString()
         letterList.remove(character1)
-            randNum2 = (0..1).random()
+        randNum2 = (0..1).random()
         val character2 = letterList[randNum2]
         binding.inputCh2.text = character2.toString()
         letterList.remove(character2)
@@ -259,7 +309,6 @@ class SpellingFragment : Fragment() {
             inputCh.x = ch.left.toFloat() + 8f
             inputCh.y = ch.top.toFloat() + 11f
             inputCh.isEnabled = false
-
             binding.apply {
                 if (liner.x < inputCh1.x && liner.x < inputCh2.x && liner.x < inputCh3.x &&
                     liner.x + liner.width > inputCh1.x && liner.x + liner.width > inputCh2.x && liner.x + liner.width > inputCh3.x &&
@@ -278,14 +327,15 @@ class SpellingFragment : Fragment() {
                     letterSound(letterId[randNum])
                     btnExit.isEnabled = false
                     Handler().postDelayed({
-                      next()
+                        next()
                     }, 3000)
                 }
             }
         } else {
             binding.apply {
-                if (liner.x<=inputCh.x && liner.y <=inputCh.y && liner.x+liner.width>=inputCh.x+inputCh.width &&
-                    liner.y+liner.height>=inputCh.y+inputCh.height){
+                if (liner.x <= inputCh.x && liner.y <= inputCh.y && liner.x + liner.width >= inputCh.x + inputCh.width &&
+                    liner.y + liner.height >= inputCh.y + inputCh.height
+                ) {
                     errorSoundPlay.start()
                 }
             }
@@ -293,7 +343,7 @@ class SpellingFragment : Fragment() {
             inputCh.y = startY
 
         }
-       }
+    }
 
     private fun letterSound(id: Int) {
         letterPlayer = MediaPlayer.create(requireContext(), id)
@@ -302,7 +352,8 @@ class SpellingFragment : Fragment() {
             letterPlayer.start()
         }
     }
-    private fun next(){
+
+    private fun next() {
         binding.apply {
             inputCh1.x = startX1
             inputCh1.y = startY1
@@ -322,5 +373,10 @@ class SpellingFragment : Fragment() {
             inputCh2onTouch()
             inputCh3onTouch()
         }
+    }
+
+    private fun checkImg(inputCh: TextView): Boolean {
+        return binding.liner.x < inputCh.x && binding.liner.x + binding.liner.width > inputCh.x + inputCh.width &&
+                binding.liner.y < inputCh.y && binding.liner.y + binding.liner.height > inputCh.y + inputCh.height
     }
 }

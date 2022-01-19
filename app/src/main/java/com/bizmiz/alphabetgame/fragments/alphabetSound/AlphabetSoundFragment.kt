@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -147,6 +148,7 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
     }
     private fun checkLetters(txt:TextView){
         if (successLetter==txt.text){
+            enabled(false)
             binding.btnExit.isEnabled = false
             winSoundPlay.start()
             binding.splash.visibility = View.VISIBLE
@@ -154,15 +156,26 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
             Handler().postDelayed({
                 binding.btnExit.isEnabled = true
                 binding.splash.visibility = View.GONE
+                enabled(true)
                 randomSound()
             }, 3000)
         }else{
+            enabled(false)
             errorSoundPlay.start()
             Handler().postDelayed({
                 abcSound.start()
+                enabled(true)
             }, 500)
 
 
+        }
+    }
+    private fun enabled(isEnabled:Boolean){
+        val letterList:ArrayList<TextView> = arrayListOf(
+            binding.abc1,binding.abc2,binding.abc3,binding.abc4,binding.abc5,binding.abc6
+        )
+        for (i in 0..5){
+            letterList[i].isEnabled = isEnabled
         }
     }
 }

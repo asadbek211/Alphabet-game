@@ -94,6 +94,20 @@ class BlankSpellingFragment : Fragment() {
                 startY1 = inputCh1.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh2)){
+                            binding.inputCh2.isEnabled = true
+                            if (startX2 != 0f && startY2 != 0f) {
+                                binding.inputCh2.x = startX2
+                                binding.inputCh2.y = startY2
+                            }
+                        }
+                        if (!checkImg(binding.inputCh3)){
+                            binding.inputCh3.isEnabled = true
+                            if (startX3 != 0f && startY3 != 0f) {
+                                binding.inputCh3.x = startX3
+                                binding.inputCh3.y = startY3
+                            }
+                        }
                         when (inputCh1.text) {
                             ch1.text -> {
                                 inputChecked(inputCh1, ch1, startX1, startY1)
@@ -112,6 +126,8 @@ class BlankSpellingFragment : Fragment() {
                         dY1 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh2.isEnabled = false
+                        binding.inputCh3.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX1)
                             .y(event.rawY + dY1)
@@ -140,6 +156,20 @@ class BlankSpellingFragment : Fragment() {
                 startY2 = inputCh2.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh1)){
+                            binding.inputCh1.isEnabled = true
+                             if (startX1 != 0f && startY1 != 0f) {
+                                binding.inputCh1.x = startX1
+                                binding.inputCh1.y = startY1
+                            }
+                        }
+                        if (!checkImg(binding.inputCh3)){
+                            binding.inputCh3.isEnabled = true
+                             if (startX3 != 0f && startY3 != 0f) {
+                                binding.inputCh3.x = startX3
+                                binding.inputCh3.y = startY3
+                            }
+                        }
                         when (inputCh2.text) {
                             ch1.text -> {
                                 inputChecked(inputCh2, ch1, startX2, startY2)
@@ -158,6 +188,8 @@ class BlankSpellingFragment : Fragment() {
                         dY2 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh1.isEnabled = false
+                        binding.inputCh3.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX2)
                             .y(event.rawY + dY2)
@@ -186,6 +218,20 @@ class BlankSpellingFragment : Fragment() {
                 startY3 = inputCh3.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        if (!checkImg(binding.inputCh1)){
+                            binding.inputCh1.isEnabled = true
+                             if (startX1 != 0f && startY1 != 0f) {
+                                binding.inputCh1.x = startX1
+                                binding.inputCh1.y = startY1
+                            }
+                        }
+                        if (!checkImg(binding.inputCh2)){
+                            binding.inputCh2.isEnabled = true
+                             if (startX2 != 0f && startY2 != 0f) {
+                                binding.inputCh2.x = startX2
+                                binding.inputCh2.y = startY2
+                            }
+                        }
                         when (inputCh3.text) {
                             ch1.text -> {
                                 inputChecked(inputCh3, ch1, startX3, startY3)
@@ -205,6 +251,8 @@ class BlankSpellingFragment : Fragment() {
                         dY3 = v.y - event.rawY
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        binding.inputCh1.isEnabled = false
+                        binding.inputCh2.isEnabled = false
                         v.animate()
                             .x(event.rawX + dX3)
                             .y(event.rawY + dY3)
@@ -327,5 +375,9 @@ class BlankSpellingFragment : Fragment() {
             inputCh2onTouch()
             inputCh3onTouch()
         }
+    }
+    private fun checkImg(inputCh: TextView): Boolean {
+        return binding.liner.x < inputCh.x && binding.liner.x + binding.liner.width > inputCh.x + inputCh.width &&
+                binding.liner.y < inputCh.y && binding.liner.y + binding.liner.height > inputCh.y + inputCh.height
     }
 }

@@ -108,21 +108,23 @@ class MemoryMatchFragment : Fragment() {
                     clicked++
                 }
                 if (clicked == 2) {
+                    for (pos in 0..11){
+                        buttons[pos].isClickable = false
+                    }
                     turnOver = true
                     if (buttons[i].text == buttons[lastClicked].text) {
-
                         successSoundPlay.start()
                         Handler().postDelayed({
                             buttons[i].visibility = View.INVISIBLE
                             buttons[lastClicked].visibility = View.INVISIBLE
-                            buttons[i].isClickable = false
-                            buttons[lastClicked].isClickable = false
+                            buttons[i].isEnabled = false
+                            buttons[lastClicked].isEnabled = false
                             turnOver = false
                             clicked = 0
                             binding.apply {
-                                if (!btn1.isClickable && !btn2.isClickable && !btn3.isClickable && !btn4.isClickable &&
-                                    !btn5.isClickable && !btn6.isClickable && !btn7.isClickable && !btn8.isClickable &&
-                                    !btn9.isClickable && !btn10.isClickable && !btn11.isClickable && !btn12.isClickable
+                                if (!btn1.isEnabled && !btn2.isEnabled && !btn3.isEnabled && !btn4.isEnabled &&
+                                    !btn5.isEnabled && !btn6.isEnabled && !btn7.isEnabled && !btn8.isEnabled &&
+                                    !btn9.isEnabled && !btn10.isEnabled && !btn11.isEnabled && !btn12.isEnabled
                                 ) {
                                     winSoundPlay.start()
                                     binding.splash.visibility = View.VISIBLE
@@ -133,9 +135,15 @@ class MemoryMatchFragment : Fragment() {
                                         for (i in 0..11) {
                                             visibility(i)
                                         }
+                                        for (pos in 0..11){
+                                            buttons[pos].isClickable = true
+                                        }
                                     }, 3000)
 
                                 }
+                            }
+                            for (pos in 0..11){
+                                buttons[pos].isClickable = true
                             }
                         }, 600)
                     } else {
@@ -147,6 +155,9 @@ class MemoryMatchFragment : Fragment() {
                             buttons[lastClicked].text = "cardBack"
                             turnOver = false
                             clicked = 0
+                            for (pos in 0..11){
+                                buttons[pos].isClickable = true
+                            }
                         }, 800)
                     }
                 }
@@ -156,7 +167,7 @@ class MemoryMatchFragment : Fragment() {
 
     private fun visibility(i: Int) {
         buttons[i].visibility = View.VISIBLE
-        buttons[i].isClickable = true
+        buttons[i].isEnabled = true
         buttons[i].setBackgroundResource(cardBack)
     }
 }
