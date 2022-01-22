@@ -11,7 +11,6 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,12 +20,12 @@ import com.bizmiz.alphabetgame.util.*
 
 class AlphabetSoundFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentAlphabetSoundBinding
-    private lateinit var scale:Animation
-    private lateinit var abcSound:MediaPlayer
-    private lateinit var winSoundPlay:MediaPlayer
-    private  lateinit var successLetter:String
-    private  lateinit var errorSoundPlay:MediaPlayer
-    private  lateinit var buttonSoundPlay:MediaPlayer
+    private lateinit var scale: Animation
+    private lateinit var abcSound: MediaPlayer
+    private lateinit var winSoundPlay: MediaPlayer
+    private lateinit var successLetter: String
+    private lateinit var errorSoundPlay: MediaPlayer
+    private lateinit var buttonSoundPlay: MediaPlayer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,14 +53,14 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnExit->{
+            R.id.btnExit -> {
                 buttonSoundPlay.start()
                 val navController: NavController =
                     Navigation.findNavController(requireActivity(), R.id.mainContainer)
                 navController.popBackStack()
             }
             R.id.abc1 -> {
-             animationStart(binding.abc1)
+                animationStart(binding.abc1)
                 checkLetters(binding.abc1)
             }
             R.id.abc2 -> {
@@ -98,22 +97,25 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
             abc6.setOnClickListener(this@AlphabetSoundFragment)
         }
     }
-    private fun animationStart(abc:TextView){
-       abc.startAnimation(scale)
+
+    private fun animationStart(abc: TextView) {
+        abc.startAnimation(scale)
     }
-    private fun randomSound(){
+
+    private fun randomSound() {
         val abcSoundId = (0..25).random()
         val randomSound = abcId[abcSoundId]
         abcSound = MediaPlayer.create(requireContext(), randomSound)
         abcSound.start()
         randomLetters(abcSoundId)
     }
-    private fun randomLetters(id:Int){
-        val letterId:ArrayList<TextView> = arrayListOf(
-            binding.abc1,binding.abc2,binding.abc3,binding.abc4,binding.abc5,binding.abc6
+
+    private fun randomLetters(id: Int) {
+        val letterId: ArrayList<TextView> = arrayListOf(
+            binding.abc1, binding.abc2, binding.abc3, binding.abc4, binding.abc5, binding.abc6
         )
         binding.apply {
-            val letters:ArrayList<String> = arrayListOf()
+            val letters: ArrayList<String> = arrayListOf()
             letters.addAll(abcLetter)
             successLetter = letters[id]
             val randomLetter1 = letterId.random()
@@ -146,8 +148,9 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
         }
 
     }
-    private fun checkLetters(txt:TextView){
-        if (successLetter==txt.text){
+
+    private fun checkLetters(txt: TextView) {
+        if (successLetter == txt.text) {
             enabled(false)
             binding.btnExit.isEnabled = false
             winSoundPlay.start()
@@ -159,7 +162,7 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
                 enabled(true)
                 randomSound()
             }, 3000)
-        }else{
+        } else {
             enabled(false)
             errorSoundPlay.start()
             Handler().postDelayed({
@@ -170,11 +173,12 @@ class AlphabetSoundFragment : Fragment(), View.OnClickListener {
 
         }
     }
-    private fun enabled(isEnabled:Boolean){
-        val letterList:ArrayList<TextView> = arrayListOf(
-            binding.abc1,binding.abc2,binding.abc3,binding.abc4,binding.abc5,binding.abc6
+
+    private fun enabled(isEnabled: Boolean) {
+        val letterList: ArrayList<TextView> = arrayListOf(
+            binding.abc1, binding.abc2, binding.abc3, binding.abc4, binding.abc5, binding.abc6
         )
-        for (i in 0..5){
+        for (i in 0..5) {
             letterList[i].isEnabled = isEnabled
         }
     }

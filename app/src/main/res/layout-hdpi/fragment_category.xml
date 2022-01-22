@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/category_fon2"
+    tools:context=".fragments.category.CategoryFragment">
+
+    <ImageView
+        android:id="@+id/btnExit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnSound"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/music_sound_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_yol"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+
+        android:id="@+id/img1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_group_7"
+        app:layout_constraintBottom_toTopOf="@+id/img4"
+        app:layout_constraintEnd_toStartOf="@+id/img2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/btnExit"
+        app:layout_constraintTop_toTopOf="@+id/btnExit"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cupe"
+        app:layout_constraintBottom_toBottomOf="@+id/img1"
+        app:layout_constraintEnd_toEndOf="@+id/img1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/img1"
+        app:layout_constraintTop_toTopOf="@+id/img1"
+        app:layout_constraintVertical_bias="0.477" />
+
+    <ImageView
+        android:id="@+id/img3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_group_10"
+        app:layout_constraintBottom_toBottomOf="@+id/img2"
+        app:layout_constraintEnd_toStartOf="@+id/btnSound"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/img2"
+        app:layout_constraintTop_toTopOf="@+id/btnSound" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/car"
+        app:layout_constraintBottom_toBottomOf="@+id/img3"
+        app:layout_constraintEnd_toEndOf="@+id/img3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/img3"
+        app:layout_constraintTop_toTopOf="@+id/img3"
+        app:layout_constraintVertical_bias="0.477" />
+
+    <ImageView
+        android:id="@+id/img4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_group_20"
+        app:layout_constraintBottom_toTopOf="@+id/imageView11"
+        app:layout_constraintEnd_toStartOf="@+id/img5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@+id/img1"
+        app:layout_constraintTop_toBottomOf="@+id/img1"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/item4"
+        app:layout_constraintBottom_toTopOf="@+id/img5"
+        app:layout_constraintEnd_toStartOf="@+id/img3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/img1"
+        app:layout_constraintTop_toTopOf="@+id/btnExit"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/dog"
+        app:layout_constraintBottom_toBottomOf="@+id/img2"
+        app:layout_constraintEnd_toEndOf="@+id/img2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/img2"
+        app:layout_constraintTop_toTopOf="@+id/img2"
+        app:layout_constraintVertical_bias="0.477" />
+
+    <ImageView
+        android:id="@+id/img5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/item6"
+        app:layout_constraintBottom_toTopOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="@+id/img2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/img4"
+        app:layout_constraintTop_toBottomOf="@+id/img2"
+        app:layout_constraintVertical_weight="1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linerTrain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/train"
+            android:layout_width="235dp"
+            android:layout_height="62dp"
+            android:src="@drawable/train_hdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/trainWheel1"
+            android:layout_width="13.251dp"
+            android:layout_height="13.251dp"
+            android:layout_marginStart="1dp"
+            android:src="@drawable/ic_wheel"
+            app:layout_constraintBottom_toBottomOf="@+id/train"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/train"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/trainWheel2"
+            android:layout_width="13.251dp"
+            android:layout_height="13.251dp"
+            android:src="@drawable/ic_wheel"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheel1"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/trainWheel1" />
+
+        <ImageView
+            android:id="@+id/trainWheelQismi1"
+            android:layout_width="17.9097dp"
+            android:layout_height="3.8196dp"
+            android:src="@drawable/ic_wheel_qismi"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheel1"
+            app:layout_constraintEnd_toEndOf="@+id/trainWheel2"
+            app:layout_constraintStart_toStartOf="@+id/trainWheel1"
+            app:layout_constraintTop_toTopOf="@+id/trainWheel1" />
+
+        <ImageView
+            android:id="@+id/trainWheel3"
+            android:layout_width="13.251dp"
+            android:layout_height="13.251dp"
+            android:layout_marginStart="1dp"
+            android:src="@drawable/ic_wheel"
+            app:layout_constraintBottom_toBottomOf="@+id/train"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.22"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/train"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/trainWheel4"
+            android:layout_width="13.251dp"
+            android:layout_height="13.251dp"
+            android:src="@drawable/ic_wheel"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheel3"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.29"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/trainWheel3" />
+
+        <ImageView
+            android:id="@+id/trainWheelQismi2"
+            android:layout_width="17.9097dp"
+            android:layout_height="3.8196dp"
+            android:src="@drawable/ic_wheel_qismi"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheel3"
+            app:layout_constraintEnd_toEndOf="@+id/trainWheel4"
+            app:layout_constraintStart_toStartOf="@+id/trainWheel3"
+            app:layout_constraintTop_toTopOf="@+id/trainWheel3" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight1"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/train"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/train"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight2"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:layout_marginStart="1dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight1"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight1" />
+
+        <ImageView
+            android:id="@+id/trainWheelQismiRight1"
+            android:layout_width="17.1991dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wheel_qismi_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight1"
+            app:layout_constraintEnd_toEndOf="@+id/trainWheelRight2"
+            app:layout_constraintStart_toStartOf="@+id/trainWheelRight1"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight1" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight3"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/train"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/train"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight4"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight3"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight3" />
+
+        <ImageView
+            android:id="@+id/trainWheelQismiRight2"
+            android:layout_width="17.1991dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wheel_qismi_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight3"
+            app:layout_constraintEnd_toEndOf="@+id/trainWheelRight4"
+            app:layout_constraintStart_toStartOf="@+id/trainWheelRight3"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight3" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight5"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/train"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/train"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/trainWheelRight6"
+            android:layout_width="10.4518dp"
+            android:layout_height="10.4518dp"
+            android:src="@drawable/ic_wheel_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight5"
+            app:layout_constraintEnd_toEndOf="@+id/train"
+            app:layout_constraintHorizontal_bias="0.98"
+            app:layout_constraintStart_toStartOf="@+id/train"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight5" />
+
+        <ImageView
+            android:id="@+id/trainWheelQismiRight3"
+            android:layout_width="17.1991dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_wheel_qismi_right"
+            app:layout_constraintBottom_toBottomOf="@+id/trainWheelRight5"
+            app:layout_constraintEnd_toEndOf="@+id/trainWheelRight6"
+            app:layout_constraintStart_toStartOf="@+id/trainWheelRight5"
+            app:layout_constraintTop_toTopOf="@+id/trainWheelRight5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

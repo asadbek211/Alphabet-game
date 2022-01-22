@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -22,7 +21,7 @@ import com.bizmiz.alphabetgame.util.buttonSound
 
 class CategoryFragment : Fragment(), View.OnClickListener {
     private lateinit var binging: FragmentCategoryBinding
-    private lateinit var rotate_left: Animation
+    private lateinit var rotateLeft: Animation
     private lateinit var rotate: Animation
     private lateinit var left: Animation
     private lateinit var right: Animation
@@ -48,7 +47,7 @@ class CategoryFragment : Fragment(), View.OnClickListener {
             fonSound.seekTo(position)
             fonSound.start()
         }
-        rotate_left = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_left)
+        rotateLeft = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_left)
         rotate = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
         left = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_left_train_category)
         right = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_train_category)
@@ -68,11 +67,11 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         binging.img4.setOnClickListener(this)
         binging.img5.setOnClickListener(this)
         trainLeft()
-           fonSound.setOnCompletionListener {
-               if (check){
-                   fonSound.start()
-               }
-           }
+        fonSound.setOnCompletionListener {
+            if (check) {
+                fonSound.start()
+            }
+        }
 
         left.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
@@ -100,7 +99,7 @@ class CategoryFragment : Fragment(), View.OnClickListener {
             } else {
                 binging.btnSound.setImageResource(R.drawable.music_sound_right)
                 fonSound.start()
-               setPrefs(true)
+                setPrefs(true)
                 check = false
             }
         }
@@ -165,7 +164,7 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         } else {
             navController.navigate(id)
         }
-        if (getPrefs()){
+        if (getPrefs()) {
             val editor = prefs.edit()
             editor.putInt("position", fonSound.currentPosition)
             editor.apply()
@@ -180,12 +179,12 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         binging.trainWheel2.startAnimation(rotate)
         binging.trainWheel3.startAnimation(rotate)
         binging.trainWheel4.startAnimation(rotate)
-        binging.trainWheelRight1.startAnimation(rotate_left)
-        binging.trainWheelRight2.startAnimation(rotate_left)
-        binging.trainWheelRight3.startAnimation(rotate_left)
-        binging.trainWheelRight4.startAnimation(rotate_left)
-        binging.trainWheelRight5.startAnimation(rotate_left)
-        binging.trainWheelRight6.startAnimation(rotate_left)
+        binging.trainWheelRight1.startAnimation(rotateLeft)
+        binging.trainWheelRight2.startAnimation(rotateLeft)
+        binging.trainWheelRight3.startAnimation(rotateLeft)
+        binging.trainWheelRight4.startAnimation(rotateLeft)
+        binging.trainWheelRight5.startAnimation(rotateLeft)
+        binging.trainWheelRight6.startAnimation(rotateLeft)
     }
 
     private fun trainRight() {
@@ -195,12 +194,12 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         binging.trainWheel2.startAnimation(rotate)
         binging.trainWheel3.startAnimation(rotate)
         binging.trainWheel4.startAnimation(rotate)
-        binging.trainWheelRight1.startAnimation(rotate_left)
-        binging.trainWheelRight2.startAnimation(rotate_left)
-        binging.trainWheelRight3.startAnimation(rotate_left)
-        binging.trainWheelRight4.startAnimation(rotate_left)
-        binging.trainWheelRight5.startAnimation(rotate_left)
-        binging.trainWheelRight6.startAnimation(rotate_left)
+        binging.trainWheelRight1.startAnimation(rotateLeft)
+        binging.trainWheelRight2.startAnimation(rotateLeft)
+        binging.trainWheelRight3.startAnimation(rotateLeft)
+        binging.trainWheelRight4.startAnimation(rotateLeft)
+        binging.trainWheelRight5.startAnimation(rotateLeft)
+        binging.trainWheelRight6.startAnimation(rotateLeft)
     }
 
     override fun onPause() {
@@ -216,12 +215,13 @@ class CategoryFragment : Fragment(), View.OnClickListener {
             fonSound.start()
         }
     }
+
     private fun setPrefs(isPlay: Boolean) {
         prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE)
         prefs.edit().putBoolean("isPlay", isPlay).apply()
     }
 
-    fun getPrefs(): Boolean {
+    private fun getPrefs(): Boolean {
         prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE)
         return prefs.getBoolean("isPlay", true)
     }

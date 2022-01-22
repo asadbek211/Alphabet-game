@@ -15,22 +15,18 @@ import com.bizmiz.alphabetgame.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
     private lateinit var binding: FragmentSplashBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        splash()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
         binding =
             FragmentSplashBinding.bind(inflater.inflate(R.layout.fragment_splash, container, false))
+        splash()
         return binding.root
 
 

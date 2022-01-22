@@ -108,7 +108,7 @@ class MemoryMatchFragment : Fragment() {
                     clicked++
                 }
                 if (clicked == 2) {
-                    for (pos in 0..11){
+                    for (pos in 0..11) {
                         buttons[pos].isClickable = false
                     }
                     turnOver = true
@@ -135,14 +135,14 @@ class MemoryMatchFragment : Fragment() {
                                         for (i in 0..11) {
                                             visibility(i)
                                         }
-                                        for (pos in 0..11){
+                                        for (pos in 0..11) {
                                             buttons[pos].isClickable = true
                                         }
                                     }, 3000)
 
                                 }
                             }
-                            for (pos in 0..11){
+                            for (pos in 0..11) {
                                 buttons[pos].isClickable = true
                             }
                         }, 600)
@@ -155,7 +155,7 @@ class MemoryMatchFragment : Fragment() {
                             buttons[lastClicked].text = "cardBack"
                             turnOver = false
                             clicked = 0
-                            for (pos in 0..11){
+                            for (pos in 0..11) {
                                 buttons[pos].isClickable = true
                             }
                         }, 800)

@@ -62,7 +62,7 @@ class BlankSpellingFragment : Fragment() {
                 false
             )
         )
-        randomLetters(binding.ch1, binding.ch2, binding.ch3, true)
+        randomLetters(binding.ch1, binding.ch2, binding.ch3)
         binding.btnExit.setOnClickListener {
             buttonSoundPlay.start()
             val navController: NavController =
@@ -274,13 +274,11 @@ class BlankSpellingFragment : Fragment() {
                 ((inputCh1.x > ch1.x && inputCh1.x < ch1.x + ch1.width / 4) && (inputCh1.y + inputCh1.height / 4 > ch1.y && inputCh1.y + inputCh1.height / 4 < ch1.y + ch1.height / 4))
     }
 
-    private fun randomLetters(ch1: TextView, ch2: TextView, ch3: TextView, isRandom: Boolean) {
+    private fun randomLetters(ch1: TextView, ch2: TextView, ch3: TextView) {
         val letterList: ArrayList<Char> = arrayListOf()
-        if (isRandom) {
             randNum = (0..64).random()
             val letterSound = letterId[randNum]
             letterSound(letterSound)
-        }
         val letter = lettersList[randNum]
         binding.imgSpelling.setImageResource(letterImages[randNum])
         letterList.add(letter[0])
@@ -289,15 +287,11 @@ class BlankSpellingFragment : Fragment() {
         ch1.text = letterList[0].toString()
         ch2.text = letterList[1].toString()
         ch3.text = letterList[2].toString()
-        if (isRandom) {
             randNum1 = (0..2).random()
-        }
         val character1 = letterList[randNum1]
         binding.inputCh1.text = character1.toString()
         letterList.remove(character1)
-        if (isRandom) {
             randNum2 = (0..1).random()
-        }
         val character2 = letterList[randNum2]
         binding.inputCh2.text = character2.toString()
         letterList.remove(character2)
@@ -370,7 +364,7 @@ class BlankSpellingFragment : Fragment() {
             splash.visibility = View.INVISIBLE
             burger.visibility = View.INVISIBLE
             effect.visibility = View.INVISIBLE
-            randomLetters(ch1, ch2, ch3, true)
+            randomLetters(ch1, ch2, ch3)
             inputCh1onTouch()
             inputCh2onTouch()
             inputCh3onTouch()

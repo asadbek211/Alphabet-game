@@ -34,10 +34,6 @@ class MainFragment : Fragment() {
     private lateinit var fonMusic: MediaPlayer
     private var check = true
     private lateinit var prefs: SharedPreferences
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -165,8 +161,8 @@ class MainFragment : Fragment() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 binging.btnPlay.startAnimation(playAlpha)
-                binging.btnPlay.visibility = View.VISIBLE
                 binging.btnPlay.startAnimation(playAnim)
+                binging.btnPlay.visibility = View.VISIBLE
                 trainSound.start()
                 binging.btnPlay.isEnabled = true
             }

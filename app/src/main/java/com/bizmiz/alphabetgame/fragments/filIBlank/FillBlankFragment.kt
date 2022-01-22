@@ -272,8 +272,6 @@ class FillBlankFragment : Fragment() {
         backgroundId.remove(random2)
         inputChFonId.remove(randomCh2)
         randTextView = inputChFonId.last()
-//            Toast.makeText(requireActivity(), "${inputChFonId.last()}\n${backgroundId.last()}", Toast.LENGTH_SHORT).show()
-
         val letter = lettersList[randNum]
         binding.imgSpelling.setImageResource(letterImages[randNum])
         letterList.add(letter[0])
@@ -389,6 +387,7 @@ class FillBlankFragment : Fragment() {
             inputCh3onTouch()
         }
     }
+
     private fun checkImg(inputCh: TextView): Boolean {
         return binding.liner.x < inputCh.x && binding.liner.x + binding.liner.width > inputCh.x + inputCh.width &&
                 binding.liner.y < inputCh.y && binding.liner.y + binding.liner.height > inputCh.y + inputCh.height
