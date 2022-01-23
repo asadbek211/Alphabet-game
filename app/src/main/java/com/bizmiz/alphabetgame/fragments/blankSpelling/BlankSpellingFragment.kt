@@ -15,6 +15,9 @@ import androidx.navigation.Navigation
 import com.bizmiz.alphabetgame.R
 import com.bizmiz.alphabetgame.databinding.FragmentBlankSpellingBinding
 import com.bizmiz.alphabetgame.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BlankSpellingFragment : Fragment() {
     private var dX1 = 0f
@@ -40,6 +43,7 @@ class BlankSpellingFragment : Fragment() {
     private lateinit var successSoundPlay: MediaPlayer
     private lateinit var letterPlayer: MediaPlayer
     private lateinit var scale: Animation
+    private var letterSound: Int = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -55,6 +59,7 @@ class BlankSpellingFragment : Fragment() {
         errorSoundPlay = MediaPlayer.create(requireContext(), errorSound)
         successSoundPlay = MediaPlayer.create(requireContext(), successSound)
         scale = AnimationUtils.loadAnimation(requireContext(), R.anim.scale)
+        winSoundPlay = MediaPlayer.create(requireContext(), winSound)
         binding = FragmentBlankSpellingBinding.bind(
             inflater.inflate(
                 R.layout.fragment_blank_spelling,
@@ -70,7 +75,10 @@ class BlankSpellingFragment : Fragment() {
             navController.popBackStack()
         }
         binding.imgSpelling.setOnClickListener {
-            letterSound(letterId[randNum])
+            if (!letterPlayer.isPlaying) {
+                letterPlayer.start()
+                binding.imgSpelling.startAnimation(scale)
+            }
         }
         inputCh1onTouch()
         inputCh2onTouch()
@@ -94,14 +102,14 @@ class BlankSpellingFragment : Fragment() {
                 startY1 = inputCh1.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
-                        if (!checkImg(binding.inputCh2)){
+                        if (!checkImg(binding.inputCh2)) {
                             binding.inputCh2.isEnabled = true
                             if (startX2 != 0f && startY2 != 0f) {
                                 binding.inputCh2.x = startX2
                                 binding.inputCh2.y = startY2
                             }
                         }
-                        if (!checkImg(binding.inputCh3)){
+                        if (!checkImg(binding.inputCh3)) {
                             binding.inputCh3.isEnabled = true
                             if (startX3 != 0f && startY3 != 0f) {
                                 binding.inputCh3.x = startX3
@@ -156,16 +164,16 @@ class BlankSpellingFragment : Fragment() {
                 startY2 = inputCh2.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
-                        if (!checkImg(binding.inputCh1)){
+                        if (!checkImg(binding.inputCh1)) {
                             binding.inputCh1.isEnabled = true
-                             if (startX1 != 0f && startY1 != 0f) {
+                            if (startX1 != 0f && startY1 != 0f) {
                                 binding.inputCh1.x = startX1
                                 binding.inputCh1.y = startY1
                             }
                         }
-                        if (!checkImg(binding.inputCh3)){
+                        if (!checkImg(binding.inputCh3)) {
                             binding.inputCh3.isEnabled = true
-                             if (startX3 != 0f && startY3 != 0f) {
+                            if (startX3 != 0f && startY3 != 0f) {
                                 binding.inputCh3.x = startX3
                                 binding.inputCh3.y = startY3
                             }
@@ -218,16 +226,16 @@ class BlankSpellingFragment : Fragment() {
                 startY3 = inputCh3.top.toFloat()
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
-                        if (!checkImg(binding.inputCh1)){
+                        if (!checkImg(binding.inputCh1)) {
                             binding.inputCh1.isEnabled = true
-                             if (startX1 != 0f && startY1 != 0f) {
+                            if (startX1 != 0f && startY1 != 0f) {
                                 binding.inputCh1.x = startX1
                                 binding.inputCh1.y = startY1
                             }
                         }
-                        if (!checkImg(binding.inputCh2)){
+                        if (!checkImg(binding.inputCh2)) {
                             binding.inputCh2.isEnabled = true
-                             if (startX2 != 0f && startY2 != 0f) {
+                            if (startX2 != 0f && startY2 != 0f) {
                                 binding.inputCh2.x = startX2
                                 binding.inputCh2.y = startY2
                             }
@@ -276,9 +284,11 @@ class BlankSpellingFragment : Fragment() {
 
     private fun randomLetters(ch1: TextView, ch2: TextView, ch3: TextView) {
         val letterList: ArrayList<Char> = arrayListOf()
-            randNum = (0..64).random()
-            val letterSound = letterId[randNum]
-            letterSound(letterSound)
+        randNum = (0..64).random()
+        letterSound = letterId[randNum]
+        letterPlayer = MediaPlayer.create(requireContext(), letterSound)
+        letterPlayer.start()
+        binding.imgSpelling.startAnimation(scale)
         val letter = lettersList[randNum]
         binding.imgSpelling.setImageResource(letterImages[randNum])
         letterList.add(letter[0])
@@ -287,11 +297,11 @@ class BlankSpellingFragment : Fragment() {
         ch1.text = letterList[0].toString()
         ch2.text = letterList[1].toString()
         ch3.text = letterList[2].toString()
-            randNum1 = (0..2).random()
+        randNum1 = (0..2).random()
         val character1 = letterList[randNum1]
         binding.inputCh1.text = character1.toString()
         letterList.remove(character1)
-            randNum2 = (0..1).random()
+        randNum2 = (0..1).random()
         val character2 = letterList[randNum2]
         binding.inputCh2.text = character2.toString()
         letterList.remove(character2)
@@ -299,53 +309,43 @@ class BlankSpellingFragment : Fragment() {
     }
 
     private fun inputChecked(inputCh: TextView, ch: TextView, startX: Float, startY: Float) {
-        if (checked(inputCh, ch)) {
-            successSoundPlay.start()
-            inputCh.x = ch.left.toFloat() + 8f
-            inputCh.y = ch.top.toFloat() + 11f
-            inputCh.isEnabled = false
+        CoroutineScope(Dispatchers.Main).launch {
+            if (checked(inputCh, ch)) {
+                successSoundPlay.start()
+                inputCh.x = ch.left.toFloat() + binding.imgDp.height
+                inputCh.y = ch.top.toFloat() + binding.imgDp.width
+                inputCh.isEnabled = false
 
-            binding.apply {
-                if (liner.x < inputCh1.x && liner.x < inputCh2.x && liner.x < inputCh3.x &&
-                    liner.x + liner.width > inputCh1.x && liner.x + liner.width > inputCh2.x && liner.x + liner.width > inputCh3.x &&
-                    liner.y < inputCh1.y && liner.y < inputCh2.y && liner.y < inputCh3.y &&
-                    liner.y + liner.height > inputCh1.y && liner.y + liner.height > inputCh2.y && liner.y + liner.height > inputCh3.y
-                ) {
-                    btnExit.isEnabled = false
-                    splash.visibility = View.VISIBLE
-                    splash.playAnimation()
-                    effect.visibility = View.VISIBLE
-                    effect.repeatCount = 1
-                    effect.playAnimation()
-                    burger.visibility = View.VISIBLE
-                    burger.playAnimation()
-                    winSoundPlay = MediaPlayer.create(requireContext(), winSound)
-                    winSoundPlay.start()
-                    letterSound(letterId[randNum])
-                    Handler().postDelayed({
-                        next()
-                    }, 3000)
+                binding.apply {
+                    if (liner.x < inputCh1.x && liner.x < inputCh2.x && liner.x < inputCh3.x &&
+                        liner.x + liner.width > inputCh1.x && liner.x + liner.width > inputCh2.x && liner.x + liner.width > inputCh3.x &&
+                        liner.y < inputCh1.y && liner.y < inputCh2.y && liner.y < inputCh3.y &&
+                        liner.y + liner.height > inputCh1.y && liner.y + liner.height > inputCh2.y && liner.y + liner.height > inputCh3.y
+                    ) {
+                        btnExit.isEnabled = false
+                        splash.visibility = View.VISIBLE
+                        splash.playAnimation()
+                        winSoundPlay.start()
+                        letterPlayer = MediaPlayer.create(requireContext(), letterSound)
+                        letterPlayer.start()
+                        binding.imgSpelling.startAnimation(scale)
+                        Handler().postDelayed({
+                            next()
+                        }, 3000)
+                    }
                 }
-            }
-        } else {
-            binding.apply {
-                if (liner.x <= inputCh.x && liner.y <= inputCh.y && liner.x + liner.width >= inputCh.x + inputCh.width &&
-                    liner.y + liner.height >= inputCh.y + inputCh.height
-                ) {
-                    errorSoundPlay.start()
+            } else {
+                binding.apply {
+                    if (liner.x <= inputCh.x && liner.y <= inputCh.y && liner.x + liner.width >= inputCh.x + inputCh.width &&
+                        liner.y + liner.height >= inputCh.y + inputCh.height
+                    ) {
+                        errorSoundPlay.start()
+                    }
                 }
+                inputCh.x = startX
+                inputCh.y = startY
+
             }
-            inputCh.x = startX
-            inputCh.y = startY
-
-        }
-    }
-
-    private fun letterSound(id: Int) {
-        letterPlayer = MediaPlayer.create(requireContext(), id)
-        if (!letterPlayer.isPlaying) {
-            binding.imgSpelling.startAnimation(scale)
-            letterPlayer.start()
         }
     }
 
@@ -362,14 +362,13 @@ class BlankSpellingFragment : Fragment() {
             inputCh3.isEnabled = true
             btnExit.isEnabled = true
             splash.visibility = View.INVISIBLE
-            burger.visibility = View.INVISIBLE
-            effect.visibility = View.INVISIBLE
             randomLetters(ch1, ch2, ch3)
             inputCh1onTouch()
             inputCh2onTouch()
             inputCh3onTouch()
         }
     }
+
     private fun checkImg(inputCh: TextView): Boolean {
         return binding.liner.x < inputCh.x && binding.liner.x + binding.liner.width > inputCh.x + inputCh.width &&
                 binding.liner.y < inputCh.y && binding.liner.y + binding.liner.height > inputCh.y + inputCh.height

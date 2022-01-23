@@ -62,7 +62,7 @@
 
     <ImageView
         android:id="@+id/liner"
-        android:layout_width="209dp"
+        android:layout_width="202dp"
         android:layout_height="68dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/stroke"
@@ -75,7 +75,7 @@
 
     <TextView
         android:id="@+id/ch1"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
         android:layout_marginStart="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/liner"
@@ -93,7 +93,7 @@
 
     <TextView
         android:id="@+id/ch2"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/liner"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
@@ -110,7 +110,7 @@
 
     <TextView
         android:id="@+id/ch3"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
         android:layout_marginEnd="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/liner"

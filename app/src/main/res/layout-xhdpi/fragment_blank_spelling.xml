@@ -11,7 +11,12 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/game_fon" />
-
+    <ImageView
+        android:id="@+id/imgDp"
+        android:layout_width="4dp"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <ImageView
         android:id="@+id/btnExit"
         android:layout_width="70dp"
@@ -62,7 +67,7 @@
 
     <ImageView
         android:id="@+id/liner"
-        android:layout_width="209dp"
+        android:layout_width="202dp"
         android:layout_height="68dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/stroke"
@@ -75,9 +80,14 @@
 
     <TextView
         android:id="@+id/ch1"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
         android:layout_marginStart="3dp"
+        android:gravity="center"
+        android:text="C"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/liner"
         app:layout_constraintStart_toStartOf="@+id/liner"
         app:layout_constraintTop_toTopOf="@+id/liner" />
@@ -93,8 +103,13 @@
 
     <TextView
         android:id="@+id/ch2"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
+        android:gravity="center"
+        android:text="U"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/liner"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="@+id/liner" />
@@ -110,14 +125,18 @@
 
     <TextView
         android:id="@+id/ch3"
-        android:layout_width="66dp"
+        android:layout_width="64dp"
         android:layout_height="68dp"
         android:layout_marginEnd="3dp"
+        android:gravity="center"
+        android:text="P"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/liner"
         app:layout_constraintEnd_toEndOf="@+id/liner"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
         app:layout_constraintTop_toTopOf="@+id/liner" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
@@ -154,57 +173,12 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/inputCh1Fon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:text="U"
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ch1"
-        app:layout_constraintEnd_toEndOf="@+id/ch1"
-        app:layout_constraintStart_toStartOf="@id/ch1"
-        app:layout_constraintTop_toTopOf="@+id/ch1" />
-
-    <TextView
-        android:id="@+id/inputCh2Fon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-
-        android:gravity="center"
-        android:text="C"
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ch2"
-        app:layout_constraintEnd_toEndOf="@+id/ch2"
-        app:layout_constraintStart_toStartOf="@id/ch2"
-        app:layout_constraintTop_toTopOf="@+id/ch2" />
-
-    <TextView
-        android:id="@+id/inputCh3Fon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:text="P"
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ch3"
-        app:layout_constraintEnd_toEndOf="@+id/ch3"
-        app:layout_constraintStart_toStartOf="@id/ch3"
-        app:layout_constraintTop_toTopOf="@+id/ch3" />
-
-    <TextView
         android:id="@+id/inputCh1"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="10dp"
+        android:background="@drawable/shape_h1"
         android:gravity="center"
         android:text="U"
         android:textColor="@color/white"
@@ -220,6 +194,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="5dp"
+        android:background="@drawable/shape_h3"
         android:gravity="center"
         android:text="C"
         android:textColor="@color/white"
@@ -236,6 +211,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_h2"
         android:gravity="center"
         android:text="P"
         android:textColor="@color/white"

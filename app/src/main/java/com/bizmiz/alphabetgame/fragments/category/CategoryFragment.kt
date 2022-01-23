@@ -91,13 +91,13 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         binging.btnSound.setOnClickListener {
             buttonSoundCategory.start()
             if (getPrefs()) {
-                binging.btnSound.setImageResource(R.drawable.music_mute_right_)
+                binging.btnSound.setImageResource(R.drawable.music_off)
                 fonSound.pause()
                 fonSound.seekTo(0)
                 setPrefs(false)
                 check = true
             } else {
-                binging.btnSound.setImageResource(R.drawable.music_sound_right)
+                binging.btnSound.setImageResource(R.drawable.music_on)
                 fonSound.start()
                 setPrefs(true)
                 check = false
@@ -105,10 +105,10 @@ class CategoryFragment : Fragment(), View.OnClickListener {
         }
         if (getPrefs()) {
             check = true
-            binging.btnSound.setImageResource(R.drawable.music_sound_right)
+            binging.btnSound.setImageResource(R.drawable.music_on)
         } else {
             check = false
-            binging.btnSound.setImageResource(R.drawable.music_mute_right_)
+            binging.btnSound.setImageResource(R.drawable.music_off)
         }
         return binging.root
     }

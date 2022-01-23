@@ -15,6 +15,9 @@ import androidx.navigation.Navigation
 import com.bizmiz.alphabetgame.R
 import com.bizmiz.alphabetgame.databinding.FragmentFillBlankBinding
 import com.bizmiz.alphabetgame.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FillBlankFragment : Fragment() {
     private var dX1 = 0f
@@ -41,6 +44,7 @@ class FillBlankFragment : Fragment() {
     private lateinit var successSoundPlay: MediaPlayer
     private lateinit var letterPlayer: MediaPlayer
     private lateinit var scale: Animation
+    private var letterSound: Int = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -71,7 +75,10 @@ class FillBlankFragment : Fragment() {
             navController.popBackStack()
         }
         binding.imgSpelling.setOnClickListener {
-            letterSound(letterId[randNum])
+            if (!letterPlayer.isPlaying) {
+                letterPlayer.start()
+                binding.imgSpelling.startAnimation(scale)
+            }
         }
         inputCh1onTouch()
         inputCh2onTouch()
@@ -249,8 +256,10 @@ class FillBlankFragment : Fragment() {
         val letterList: ArrayList<Char> = arrayListOf()
 
         randNum = (0..64).random()
-        val letterSound = letterId[randNum]
-        letterSound(letterSound)
+        letterSound = letterId[randNum]
+        letterPlayer = MediaPlayer.create(requireContext(), letterSound)
+        letterPlayer.start()
+        binding.imgSpelling.startAnimation(scale)
         val inputChFonId: ArrayList<TextView> = arrayListOf(
             binding.inputCh1Fon,
             binding.inputCh2Fon,
@@ -281,7 +290,6 @@ class FillBlankFragment : Fragment() {
         ch2.text = letterList[1].toString()
         ch3.text = letterList[2].toString()
         randNum1 = (0..2).random()
-
         val character1 = letterList[randNum1]
         binding.inputCh1.text = character1.toString()
         letterList.remove(character1)
@@ -310,56 +318,44 @@ class FillBlankFragment : Fragment() {
     }
 
     private fun inputChecked(inputCh: TextView, startX: Float, startY: Float) {
-        if (checked(inputCh, randTextView) && inputCh.text == randTextView.text) {
-            successSoundPlay.start()
-            inputCh.x = randTextView.left.toFloat()
-            inputCh.y = randTextView.top.toFloat()
-            binding.apply {
-                btnExit.isEnabled = false
-                splash.visibility = View.VISIBLE
-                splash.playAnimation()
-                effect.visibility = View.VISIBLE
-                effect.repeatCount = 1
-                effect.playAnimation()
-                burger.visibility = View.VISIBLE
-                burger.playAnimation()
-                winSoundPlay = MediaPlayer.create(requireContext(), winSound)
-                winSoundPlay.start()
-                letterSound(letterId[randNum])
-                inputCh1.isEnabled = false
-                inputCh2.isEnabled = false
-                inputCh3.isEnabled = false
-                Handler().postDelayed({
-                    next()
-                }, 3000)
-            }
-        } else {
-            binding.apply {
-                if (liner.x <= inputCh.x && liner.y <= inputCh.y && liner.x + liner.width >= inputCh.x + inputCh.width &&
-                    liner.y + liner.height >= inputCh.y + inputCh.height
-                ) {
-                    errorSoundPlay.start()
+        CoroutineScope(Dispatchers.Main).launch {
+            if (checked(inputCh, randTextView) && inputCh.text == randTextView.text) {
+                successSoundPlay.start()
+                inputCh.x = randTextView.left.toFloat()
+                inputCh.y = randTextView.top.toFloat()
+                binding.apply {
+                    btnExit.isEnabled = false
+                    splash.visibility = View.VISIBLE
+                    splash.playAnimation()
+                    winSoundPlay = MediaPlayer.create(requireContext(), winSound)
+                    winSoundPlay.start()
+                    letterPlayer.start()
+                    binding.imgSpelling.startAnimation(scale)
+                    inputCh1.isEnabled = false
+                    inputCh2.isEnabled = false
+                    inputCh3.isEnabled = false
+                    Handler().postDelayed({
+                        next()
+                    }, 3000)
                 }
+            } else {
+                binding.apply {
+                    if (liner.x <= inputCh.x && liner.y <= inputCh.y && liner.x + liner.width >= inputCh.x + inputCh.width &&
+                        liner.y + liner.height >= inputCh.y + inputCh.height
+                    ) {
+                        errorSoundPlay.start()
+                    }
+                }
+                inputCh.x = startX
+                inputCh.y = startY
+
             }
-            inputCh.x = startX
-            inputCh.y = startY
-
-        }
-    }
-
-    private fun letterSound(id: Int) {
-        letterPlayer = MediaPlayer.create(requireContext(), id)
-        if (!letterPlayer.isPlaying) {
-            binding.imgSpelling.startAnimation(scale)
-            letterPlayer.start()
         }
     }
 
     private fun next() {
         binding.apply {
             splash.visibility = View.GONE
-            burger.visibility = View.GONE
-            effect.visibility = View.GONE
             inputCh1.isEnabled = true
             inputCh2.isEnabled = true
             inputCh3.isEnabled = true

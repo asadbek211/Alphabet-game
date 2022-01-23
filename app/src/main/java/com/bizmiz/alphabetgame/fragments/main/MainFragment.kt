@@ -92,13 +92,13 @@ class MainFragment : Fragment() {
         binging.btnSound.setOnClickListener {
             soundBtn.start()
             if (getPrefs()) {
-                binging.btnSound.setImageResource(R.drawable.music_mute)
+                binging.btnSound.setImageResource(R.drawable.music_off)
                 fonMusic.pause()
                 fonMusic.seekTo(0)
                 setPrefs(false)
                 check = true
             } else {
-                binging.btnSound.setImageResource(R.drawable.music_sound)
+                binging.btnSound.setImageResource(R.drawable.music_on)
                 fonMusic.start()
                 setPrefs(true)
                 check = false
@@ -106,10 +106,10 @@ class MainFragment : Fragment() {
         }
         if (getPrefs()) {
             check = true
-            binging.btnSound.setImageResource(R.drawable.music_sound)
+            binging.btnSound.setImageResource(R.drawable.music_on)
         } else {
             check = false
-            binging.btnSound.setImageResource(R.drawable.music_mute)
+            binging.btnSound.setImageResource(R.drawable.music_off)
         }
         playAnim?.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {

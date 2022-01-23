@@ -15,6 +15,9 @@ import androidx.navigation.Navigation
 import com.bizmiz.alphabetgame.R
 import com.bizmiz.alphabetgame.databinding.FragmentMemoryMatchBinding
 import com.bizmiz.alphabetgame.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MemoryMatchFragment : Fragment() {
     private var clicked = 0
@@ -95,74 +98,77 @@ class MemoryMatchFragment : Fragment() {
     }
 
     private fun startGame() {
-        for (i in 0..11) {
-            buttons[i].text = "cardBack"
-            buttons[i].textSize = 0.0F
-            buttons[i].setOnClickListener {
-                if (buttons[i].text == "cardBack" && !turnOver) {
-                    buttons[i].setBackgroundResource(images[i])
-                    buttons[i].setText(images[i])
-                    if (clicked == 0) {
-                        lastClicked = i
+        CoroutineScope(Dispatchers.Main).launch {
+            for (i in 0..11) {
+                buttons[i].text = "cardBack"
+                buttons[i].textSize = 0.0F
+                buttons[i].setOnClickListener {
+                    if (buttons[i].text == "cardBack" && !turnOver) {
+                        buttons[i].setBackgroundResource(images[i])
+                        buttons[i].setText(images[i])
+                        if (clicked == 0) {
+                            lastClicked = i
+                        }
+                        clicked++
                     }
-                    clicked++
-                }
-                if (clicked == 2) {
-                    for (pos in 0..11) {
-                        buttons[pos].isClickable = false
-                    }
-                    turnOver = true
-                    if (buttons[i].text == buttons[lastClicked].text) {
-                        successSoundPlay.start()
-                        Handler().postDelayed({
-                            buttons[i].visibility = View.INVISIBLE
-                            buttons[lastClicked].visibility = View.INVISIBLE
-                            buttons[i].isEnabled = false
-                            buttons[lastClicked].isEnabled = false
-                            turnOver = false
-                            clicked = 0
-                            binding.apply {
-                                if (!btn1.isEnabled && !btn2.isEnabled && !btn3.isEnabled && !btn4.isEnabled &&
-                                    !btn5.isEnabled && !btn6.isEnabled && !btn7.isEnabled && !btn8.isEnabled &&
-                                    !btn9.isEnabled && !btn10.isEnabled && !btn11.isEnabled && !btn12.isEnabled
-                                ) {
-                                    winSoundPlay.start()
-                                    binding.splash.visibility = View.VISIBLE
-                                    binding.splash.playAnimation()
-                                    Handler().postDelayed({
-                                        randomImgList()
-                                        startGame()
-                                        for (i in 0..11) {
-                                            visibility(i)
-                                        }
-                                        for (pos in 0..11) {
-                                            buttons[pos].isClickable = true
-                                        }
-                                    }, 3000)
+                    if (clicked == 2) {
+                        for (pos in 0..11) {
+                            buttons[pos].isClickable = false
+                        }
+                        turnOver = true
+                        if (buttons[i].text == buttons[lastClicked].text) {
+                            successSoundPlay.start()
+                            Handler().postDelayed({
+                                buttons[i].visibility = View.INVISIBLE
+                                buttons[lastClicked].visibility = View.INVISIBLE
+                                buttons[i].isEnabled = false
+                                buttons[lastClicked].isEnabled = false
+                                turnOver = false
+                                clicked = 0
+                                binding.apply {
+                                    if (!btn1.isEnabled && !btn2.isEnabled && !btn3.isEnabled && !btn4.isEnabled &&
+                                        !btn5.isEnabled && !btn6.isEnabled && !btn7.isEnabled && !btn8.isEnabled &&
+                                        !btn9.isEnabled && !btn10.isEnabled && !btn11.isEnabled && !btn12.isEnabled
+                                    ) {
+                                        winSoundPlay.start()
+                                        binding.splash.visibility = View.VISIBLE
+                                        binding.splash.playAnimation()
+                                        Handler().postDelayed({
+                                            randomImgList()
+                                            startGame()
+                                            for (i in 0..11) {
+                                                visibility(i)
+                                            }
+                                            for (pos in 0..11) {
+                                                buttons[pos].isClickable = true
+                                            }
+                                        }, 3000)
 
+                                    }
                                 }
-                            }
-                            for (pos in 0..11) {
-                                buttons[pos].isClickable = true
-                            }
-                        }, 600)
-                    } else {
-                        errorSoundPlay.start()
-                        Handler().postDelayed({
-                            buttons[i].setBackgroundResource(cardBack)
-                            buttons[lastClicked].setBackgroundResource(cardBack)
-                            buttons[i].text = "cardBack"
-                            buttons[lastClicked].text = "cardBack"
-                            turnOver = false
-                            clicked = 0
-                            for (pos in 0..11) {
-                                buttons[pos].isClickable = true
-                            }
-                        }, 800)
+                                for (pos in 0..11) {
+                                    buttons[pos].isClickable = true
+                                }
+                            }, 600)
+                        } else {
+                            errorSoundPlay.start()
+                            Handler().postDelayed({
+                                buttons[i].setBackgroundResource(cardBack)
+                                buttons[lastClicked].setBackgroundResource(cardBack)
+                                buttons[i].text = "cardBack"
+                                buttons[lastClicked].text = "cardBack"
+                                turnOver = false
+                                clicked = 0
+                                for (pos in 0..11) {
+                                    buttons[pos].isClickable = true
+                                }
+                            }, 800)
+                        }
                     }
                 }
             }
         }
+
     }
 
     private fun visibility(i: Int) {
